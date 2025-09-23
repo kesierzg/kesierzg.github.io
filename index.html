@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="pl">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Moja Retro Strona</title>
+  <style type="text/css">
+    body {
+      background-image: url("images/ss221.jpg");
+      background-repeat: repeat;
+      font-family: "MS Sans Serif", Tahoma, sans-serif;
+      color: #000000;
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .okno {
+      position: absolute;
+      top: 100px;
+      left: 100px;
+      cursor: move;
+      background: url("images/windows.png") no-repeat;
+      z-index: 10;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .content-inside {
+      position: absolute;
+      top: 150px;
+      left: 200px;
+      width: 550px;
+      height: 420px;
+      background-color: white;
+      padding: 10px;
+      color: black;
+      overflow: auto;
+      font-size: 14px;
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      font-size: 11px;
+      font-family: "MS Sans Serif", Tahoma, sans-serif;
+      background-color: #E0E0E0;
+      border-top: 1px solid #808080;
+      text-align: center;
+      padding-top: 2px;
+      color: #333;
+      z-index: 500;
+    }
+
+    #taskbar {
+      position: fixed;
+      bottom: 20px;
+      left: 0;
+      width: 100%;
+      height: 32px;
+      background-color: #C0C0C0;
+      border-top: 2px solid #FFFFFF;
+      border-bottom: 2px solid #808080;
+      font-family: 'MS Sans Serif', Tahoma, sans-serif;
+      font-size: 12px;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      box-shadow: inset 1px 1px #fff, inset -1px -1px #808080;
+      z-index: 1000;
+    }
+
+    #clock {
+      border: 2px outset #fff;
+      padding: 2px 8px;
+      margin-right: 8px;
+    }
+  </style>
+
+  <script type="text/javascript">
+    let isDragging = false;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    function startDrag(e) {
+      e.preventDefault();
+      isDragging = true;
+      const box = document.getElementById('okno');
+      offsetX = e.clientX - box.offsetLeft;
+      offsetY = e.clientY - box.offsetTop;
+      document.addEventListener('mousemove', drag);
+      document.addEventListener('mouseup', stopDrag);
+    }
+
+    function drag(e) {
+      if (isDragging) {
+        const box = document.getElementById('okno');
+        box.style.left = (e.clientX - offsetX) + 'px';
+        box.style.top = (e.clientY - offsetY) + 'px';
+      }
+    }
+
+    function stopDrag() {
+      isDragging = false;
+      document.removeEventListener('mousemove', drag);
+      document.removeEventListener('mouseup', stopDrag);
+    }
+
+    window.onload = function () {
+      document.getElementById('okno').addEventListener('mousedown', startDrag);
+      updateClock();
+      setInterval(updateClock, 60000);
+    };
+
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      let minutes = now.getMinutes();
+      if (hours < 10) hours = "0" + hours;
+      if (minutes < 10) minutes = "0" + minutes;
+      document.getElementById('clock').innerText = hours + ":" + minutes;
+    }
+  </script>
+</head>
+<body>
+  <div id="okno" class="okno">
+    <img src="images/windows.png" alt="Okno" style="display: block; width: 760px; height: auto;">
+    <div class="content-inside">
+      <center>
+        <h1 style="color: black;">Witaj na mojej stronie!</h1>
+        <marquee behavior="scroll" direction="left">To jest przesuwający się tekst!</marquee>
+      </center>
+      <hr>
+      <p style="font-family: Verdana; font-size: 13px;">SAMPLE TEXT SAMPLE TEXT</p>
+      <p><a href="strona2.html" style="color: blue; font-family: Verdana; font-size: 13px;">Kliknij tutaj, aby przejść dalej!</a></p>
+    </div>
+  </div>
+
+  <div id="taskbar">
+    <div>
+      <img src="images/start.png" alt="Start" style="vertical-align: middle;">
+    </div>
+    <div style="flex-grow: 1;"></div>
+    <div id="clock"></div>
+  </div>
+
+  <div class="footer">© 2025 kesierzg</div>
+</body>
+</html>
