@@ -2,152 +2,262 @@
   "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="pl">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>ziabkowski.pl</title>
-  <style type="text/css">
-    body {
-      background-image: url("images/ss221.jpg");
-      background-repeat: repeat;
-      font-family: "MS Sans Serif", Tahoma, sans-serif;
-      color: #000000;
-      margin: 0;
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>⋆` 🍭 welcome 🍭 `⋆</title>
+<style type="text/css">
+body {
+  background-image: url("images/main.jpg");
+  background-repeat: repeat;
+  font-family: "MS Sans Serif", Tahoma, sans-serif;
+  margin: 0;
+}
+
+* { box-sizing: border-box; }
+
+.icon {
+  width: 72px;
+  text-align: center;
+  font-size: 11px;
+  color: white;
+  cursor: default;
+}
+
+.icon-inner {
+  padding: 6px 4px 4px 4px;
+}
+
+.icon img {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 2px;
+}
+
+.icon-label {
+  display: inline-block;
+  background-color: #000080;
+  padding: 2px 4px;
+  line-height: 12px;
+}
+
+.icon.selected .icon-label {
+  background-color: #0000AA;
+}
+
+.recycle-bin {
+  position: fixed;
+  right: 20px;
+  bottom: 60px;
+}
+
+.okno {
+	
+  position: absolute;
+  left: 350px;
+  z-index: 10;
+  user-select: none;
+}
+
+.okno img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.titlebar-drag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 28px;
+  cursor: move;
+}
+
+.content-inside {
+  position: absolute;
+  top: 120px;
+  left: 200px;
+  width: 550px;
+  height: auto;
+  background: white;
+  padding: 10px;
+  overflow: hidden;
+  font-family: "Times New Roman", Times, serif;
+  text-align: justify;
+  font-size: 18px;
+  color: #000000;
+}
+
+.badges {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.badges img {
+  margin: 2px 4px;
+  vertical-align: middle;
+}
+
+.btn-close {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 18px;
+  height: 18px;
+}
+
+#taskbar {
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  height: 32px;
+  background: #C0C0C0;
+  border-top: 2px solid #FFF;
+  border-bottom: 2px solid #808080;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  z-index: 1000;
+}
+
+#clock {
+  border: 2px outset #FFF;
+  padding: 2px 8px;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 20px;
+  background: #E0E0E0;
+  border-top: 1px solid #808080;
+  text-align: center;
+  font-size: 11px;
+}
+</style>
+
+<script type="text/javascript">
+var isDragging = false;
+var offsetX = 0;
+var offsetY = 0;
+
+function startDrag(e) {
+  var box = document.getElementById('okno');
+  isDragging = true;
+  offsetX = e.clientX - box.offsetLeft;
+  offsetY = e.clientY - box.offsetTop;
+  document.onmousemove = drag;
+  document.onmouseup = stopDrag;
+}
+
+function drag(e) {
+  if (!isDragging) return;
+  var box = document.getElementById('okno');
+  box.style.left = (e.clientX - offsetX) + 'px';
+  box.style.top = (e.clientY - offsetY) + 'px';
+}
+
+function stopDrag() {
+  isDragging = false;
+  document.onmousemove = null;
+  document.onmouseup = null;
+}
+
+function openWindow() {
+  document.getElementById('okno').style.display = 'block';
+}
+
+function closeWindow() {
+  document.getElementById('okno').style.display = 'none';
+}
+
+function selectIcon(el) {
+  var icons = document.getElementsByTagName('div');
+  for (var i = 0; i < icons.length; i++) {
+    if (icons[i].className.indexOf('icon') !== -1) {
+      icons[i].className = icons[i].className.replace(' selected', '');
     }
+  }
+  el.className += ' selected';
+}
 
-    * {
-      box-sizing: border-box;
-    }
+function updateBackground() {
+  var hour = new Date().getHours();
+  document.body.style.backgroundImage =
+    hour >= 18
+    ? "url('images/maininvert.jpg')"
+    : "url('images/main.jpg')";
+}
 
-    .okno {
-      position: absolute;
-      top: 100px;
-      left: 100px;
-      cursor: move;
-      background: url("images/windows.png") no-repeat;
-      z-index: 10;
-      user-select: none;
-      -webkit-user-drag: none;
-    }
+function updateClock() {
+  var now = new Date();
+  var h = now.getHours();
+  var m = now.getMinutes();
+  if (h < 10) h = "0" + h;
+  if (m < 10) m = "0" + m;
+  document.getElementById('clock').innerText = h + ":" + m;
+  updateBackground();
+}
 
-    .content-inside {
-      position: absolute;
-      top: 150px;
-      left: 200px;
-      width: 550px;
-      height: 420px;
-      background-color: white;
-      padding: 10px;
-      color: black;
-      overflow: auto;
-      font-size: 14px;
-    }
-
-    .footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 20px;
-      font-size: 11px;
-      font-family: "MS Sans Serif", Tahoma, sans-serif;
-      background-color: #E0E0E0;
-      border-top: 1px solid #808080;
-      text-align: center;
-      padding-top: 2px;
-      color: #333;
-      z-index: 500;
-    }
-
-    #taskbar {
-      position: fixed;
-      bottom: 20px;
-      left: 0;
-      width: 100%;
-      height: 32px;
-      background-color: #C0C0C0;
-      border-top: 2px solid #FFFFFF;
-      border-bottom: 2px solid #808080;
-      font-family: 'MS Sans Serif', Tahoma, sans-serif;
-      font-size: 12px;
-      padding: 4px;
-      display: flex;
-      align-items: center;
-      box-shadow: inset 1px 1px #fff, inset -1px -1px #808080;
-      z-index: 1000;
-    }
-
-    #clock {
-      border: 2px outset #fff;
-      padding: 2px 8px;
-      margin-right: 8px;
-    }
-  </style>
-
-  <script type="text/javascript">
-    let isDragging = false;
-    let offsetX = 0;
-    let offsetY = 0;
-
-    function startDrag(e) {
-      e.preventDefault();
-      isDragging = true;
-      const box = document.getElementById('okno');
-      offsetX = e.clientX - box.offsetLeft;
-      offsetY = e.clientY - box.offsetTop;
-      document.addEventListener('mousemove', drag);
-      document.addEventListener('mouseup', stopDrag);
-    }
-
-    function drag(e) {
-      if (isDragging) {
-        const box = document.getElementById('okno');
-        box.style.left = (e.clientX - offsetX) + 'px';
-        box.style.top = (e.clientY - offsetY) + 'px';
-      }
-    }
-
-    function stopDrag() {
-      isDragging = false;
-      document.removeEventListener('mousemove', drag);
-      document.removeEventListener('mouseup', stopDrag);
-    }
-
-    window.onload = function () {
-      document.getElementById('okno').addEventListener('mousedown', startDrag);
-      updateClock();
-      setInterval(updateClock, 60000);
-    };
-
-    function updateClock() {
-      const now = new Date();
-      let hours = now.getHours();
-      let minutes = now.getMinutes();
-      if (hours < 10) hours = "0" + hours;
-      if (minutes < 10) minutes = "0" + minutes;
-      document.getElementById('clock').innerText = hours + ":" + minutes;
-    }
-  </script>
+window.onload = function () {
+  document.querySelector('.titlebar-drag').onmousedown = startDrag;
+  document.onmouseleave = stopDrag;
+  updateClock();
+  setInterval(updateClock, 60000);
+};
+</script>
 </head>
-<body>
-  <div id="okno" class="okno">
-    <img src="images/windows.png" alt="Okno" style="display: block; width: 760px; height: auto;">
-    <div class="content-inside">
-      <center>
-        <h1 style="color: black;">Witaj na mojej stronie!</h1>
-        <marquee behavior="scroll" direction="left">To jest przesuwający się tekst!</marquee>
-      </center>
-      <hr>
-      <p><a href="mozejutro.html" style="color: blue; font-family: Verdana; font-size: 13px;">Kliknij tutaj, aby przejść dalej!</a></p>
-	  <img src="images/undercon.gif">
-    </div>
-  </div>
-  <div id="taskbar">
-    <div>
-      <img src="images/start.png" alt="Start" style="vertical-align: middle;">
-    </div>
-    <div style="flex-grow: 1;"></div>
-    <div id="clock"></div>
-  </div>
 
-  <div class="footer">© 2025 kesierzg</div>
+<body>
+	<div class="icon" onclick="selectIcon(this); openWindow();">
+  	<div class="icon-inner">
+    <img src="images/icons/explorer.png">
+    <div class="icon-label">Mój komputer</div>
+  </div>
+</div>
+
+<div class="icon recycle-bin" onclick="selectIcon(this); location.href='lost.html'">
+  <div class="icon-inner">
+    <img src="images/icons/bin.png">
+    <div class="icon-label">Kosz</div>
+  </div>
+</div>
+
+<div id="okno" class="okno">
+  <img src="images/windows.png" width="760" ondragstart="return false;">
+  <div class="titlebar-drag"></div>
+  <div class="btn-close" onclick="closeWindow()"></div>
+
+  <div class="content-inside">
+    <p>
+	  Witaj na mojej stronie.<br>
+	  Ta strona została zaprojektowana w stylu Windows 98
+	  i powinna (w większości) działać poprawnie na starym sprzęcie. (to do) <br>
+	  Dlaczego??? Mam jakiś problem widocznie i nie lubie nowego design language.<br>
+	  Jako że to MOJA STRONA I MOGE W NIEJ PISAĆ CO CHCE TO TROCHE SIĘ WYŻYJE!!!
+	  Szczególnie denerwujące jest gdy nowoczesne strony internetowe używają menu rozwijanych,
+	  pierdyliarda animacji i wszelakiego szamba które niczemu nie służy. GRRRRRRRRR
+	  Ta mimo obecnego stanu ma o wiele więcej funkcji i hula. Szach mat komuniści. <br><br>
+	  
+	  Strona jest aktualizowana jak sobie o niej przypomne i mam wolny czas, pomiędzy 
+	  co sobotnim reinstallem Windowsa/Linuxa i naprawianiu elektrozłomu. No i uczeniu się na uczelnie
+	  tego typu jestem pilnym studentem.
+	  <hr>
+	  <div class="badges">
+	    <a href="https://www.firefox.com"><img src="images/firefoxgf1.gif" alt="Firefox"></a>
+	    <a href="https://infinitemac.org/"><img src="images/macos.gif" alt="Mac OS"></a>
+	    <a href="graphixs.html"><img src="images/93.png" alt="Graphic design is my passion"></a>
+	  </div>
+	</p>
+  </div>
+</div>
+
+<div id="taskbar">
+  <img src="images/start.png">
+  <div style="flex-grow:1"></div>
+  <div id="clock"></div>
+</div>
+
+<div class="footer">© 2026 kesierzg</div>
 </body>
 </html>
