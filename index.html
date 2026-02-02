@@ -1,263 +1,65 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
-  "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="pl">
+<!DOCTYPE HTML>
+<HTML lang="pl">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>⋆` 🍭 welcome 🍭 `⋆</title>
-<style type="text/css">
-body {
-  background-image: url("images/main.jpg");
-  background-repeat: repeat;
-  font-family: "MS Sans Serif", Tahoma, sans-serif;
-  margin: 0;
-}
-
-* { box-sizing: border-box; }
-
-.icon {
-  width: 72px;
-  text-align: center;
-  font-size: 11px;
-  color: white;
-  cursor: default;
-}
-
-.icon-inner {
-  padding: 6px 4px 4px 4px;
-}
-
-.icon img {
-  width: 32px;
-  height: 32px;
-  margin-bottom: 2px;
-}
-
-.icon-label {
-  display: inline-block;
-  background-color: #000080;
-  padding: 2px 4px;
-  line-height: 12px;
-}
-
-.icon.selected .icon-label {
-  background-color: #0000AA;
-}
-
-.recycle-bin {
-  position: fixed;
-  right: 20px;
-  bottom: 60px;
-}
-
-.okno {
-	
-  position: absolute;
-  left: 350px;
-  z-index: 10;
-  user-select: none;
-}
-
-.okno img {
-  -webkit-user-drag: none;
-  user-select: none;
-}
-
-.titlebar-drag {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 28px;
-  cursor: move;
-}
-
-.content-inside {
-  position: absolute;
-  top: 120px;
-  left: 200px;
-  width: 550px;
-  height: auto;
-  background: white;
-  padding: 10px;
-  overflow: hidden;
-  font-family: "Times New Roman", Times, serif;
-  text-align: justify;
-  font-size: 18px;
-  color: #000000;
-}
-
-.badges {
-  text-align: center;
-  margin-top: 10px;
-}
-
-.badges img {
-  margin: 2px 4px;
-  vertical-align: middle;
-}
-
-.btn-close {
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  width: 18px;
-  height: 18px;
-}
-
-#taskbar {
-  position: fixed;
-  bottom: 20px;
-  left: 0;
-  width: 100%;
-  height: 32px;
-  background: #C0C0C0;
-  border-top: 2px solid #FFF;
-  border-bottom: 2px solid #808080;
-  display: flex;
-  align-items: center;
-  padding: 4px;
-  z-index: 1000;
-}
-
-#clock {
-  border: 2px outset #FFF;
-  padding: 2px 8px;
-}
-
-.footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 20px;
-  background: #E0E0E0;
-  border-top: 1px solid #808080;
-  text-align: center;
-  font-size: 11px;
-}
-</style>
-
-<script type="text/javascript">
-var isDragging = false;
-var offsetX = 0;
-var offsetY = 0;
-
-function startDrag(e) {
-  var box = document.getElementById('okno');
-  isDragging = true;
-  offsetX = e.clientX - box.offsetLeft;
-  offsetY = e.clientY - box.offsetTop;
-  document.onmousemove = drag;
-  document.onmouseup = stopDrag;
-}
-
-function drag(e) {
-  if (!isDragging) return;
-  var box = document.getElementById('okno');
-  box.style.left = (e.clientX - offsetX) + 'px';
-  box.style.top = (e.clientY - offsetY) + 'px';
-}
-
-function stopDrag() {
-  isDragging = false;
-  document.onmousemove = null;
-  document.onmouseup = null;
-}
-
-function openWindow() {
-  document.getElementById('okno').style.display = 'block';
-}
-
-function closeWindow() {
-  document.getElementById('okno').style.display = 'none';
-}
-
-function selectIcon(el) {
-  var icons = document.getElementsByTagName('div');
-  for (var i = 0; i < icons.length; i++) {
-    if (icons[i].className.indexOf('icon') !== -1) {
-      icons[i].className = icons[i].className.replace(' selected', '');
-    }
-  }
-  el.className += ' selected';
-}
-
-function updateBackground() {
-  var hour = new Date().getHours();
-  document.body.style.backgroundImage =
-    hour >= 18
-    ? "url('images/maininvert.jpg')"
-    : "url('images/main.jpg')";
-}
-
-function updateClock() {
-  var now = new Date();
-  var h = now.getHours();
-  var m = now.getMinutes();
-  if (h < 10) h = "0" + h;
-  if (m < 10) m = "0" + m;
-  document.getElementById('clock').innerText = h + ":" + m;
-  updateBackground();
-}
-
-window.onload = function () {
-  document.querySelector('.titlebar-drag').onmousedown = startDrag;
-  document.onmouseleave = stopDrag;
-  updateClock();
-  setInterval(updateClock, 60000);
-};
-</script>
+    <meta charset="utf-8">
+	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="css/clippy.css" media="all">
+	<title>⋆` 🍭 welcome 🍭 `⋆</title>
+	<script defer src="js/jquery.1.7.min.js"></script>
+	<script defer src="js/clippy.min.js"></script>
+	<script defer src="js/clippy-init.js"></script>
+    <script defer src="js/script.js"></script>
 </head>
 
 <body>
 	<div class="icon" onclick="selectIcon(this); openWindow();">
   	<div class="icon-inner">
-    <img src="images/icons/explorer.png">
+    <img src="images/icons/explorer.png" alt="Mój komputer">
     <div class="icon-label">Mój komputer</div>
   </div>
 </div>
 
 <div class="icon recycle-bin" onclick="selectIcon(this); location.href='lost.html'">
   <div class="icon-inner">
-    <img src="images/icons/bin.png">
+    <img src="images/icons/bin.png" alt="Kosz">
     <div class="icon-label">Kosz</div>
   </div>
 </div>
 
-<div id="okno" class="okno">
-  <img src="images/windows.png" width="760" ondragstart="return false;">
+<div id="window" class="window">
+  <img src="images/windows.png" width="760" ondragstart="return false;" alt="Okno">
   <div class="titlebar-drag"></div>
   <div class="btn-close" onclick="closeWindow()"></div>
 
   <div class="content-inside">
     <p>
-	  Witaj na mojej stronie.<br>
-	  Ta strona została zaprojektowana w stylu Windows 98
-	  i powinna (w większości) działać poprawnie na starym sprzęcie. (to do) <br>
-	  Dlaczego??? Mam jakiś problem widocznie i nie lubie nowego design language.<br>
+	  Witaj na mojej stronie!<br><br>
+	  Ta strona została zaprojektowana w stylu Windows 98<br>
+	  Dlaczego??? Mam jakiś problem ze sobą i bardzo lubie ten intefejs, jak i inne retro GUI<br>
 	  Jako że to MOJA STRONA I MOGE W NIEJ PISAĆ CO CHCE TO TROCHE SIĘ WYŻYJE!!!
 	  Szczególnie denerwujące jest gdy nowoczesne strony internetowe używają menu rozwijanych,
 	  pierdyliarda animacji i wszelakiego szamba które niczemu nie służy. GRRRRRRRRR
 	  Ta mimo obecnego stanu ma o wiele więcej funkcji i hula. Szach mat komuniści. <br><br>
 	  
 	  Strona jest aktualizowana jak sobie o niej przypomne i mam wolny czas, pomiędzy 
-	  co sobotnim reinstallem Windowsa/Linuxa i naprawianiu elektrozłomu. No i oczywiście uczeniu się na uczelnie
+	  cosobotnim reinstallem Windowsa/Linuxa i naprawianiu elektrozłomu. No i oczywiście uczeniu się na 	  uczelnie
 	  tego typu jestem pilnym studentem.
-	  <hr>
-	  <div class="badges">
-	    <a href="https://www.firefox.com"><img src="images/firefoxgf1.gif" alt="Firefox"></a>
-	    <a href="https://infinitemac.org/"><img src="images/macos.gif" alt="Mac OS"></a>
-	    <a href="graphixs.html"><img src="images/93.png" alt="Graphic design is my passion"></a>
-	  </div>
 	</p>
+	<hr>
+	<div class="badges">
+	  <a href="https://www.firefox.com"><img src="images/firefoxgf1.gif" alt="Firefox"></a>
+	  <a href="https://infinitemac.org/"><img src="images/macos.gif" alt="Mac OS"></a>
+	  <a href="graphixs.html"><img src="images/93.png" alt="Graphic design is my passion"></a>
+	</div>
   </div>
 </div>
 
 <div id="taskbar">
-  <img src="images/start.png">
+  <img src="images/start.png" alt="start">
   <div style="flex-grow:1"></div>
   <div id="clock"></div>
 </div>
 
 <div class="footer">© 2026 kesierzg</div>
 </body>
-</html>
+</HTML>

@@ -1,68 +1,17 @@
-<!DOCTYPE html>
-<html lang="pl">
+<!DOCTYPE HTML>
+<HTML lang="en">
 <head>
-<meta charset="UTF-8">
-<title>???</title>
-
-<style>
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  background: black;
-  overflow: hidden;
-}
-
-.center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  color: #cfcfcf;
-  font-family: monospace;
-  letter-spacing: 2px;
-  display: none;
-  animation: fadein 1.5s ease forwards;
-}
-
-body.revealed {
-  background-image: url("images/expressionless.jpg");
-  background-repeat: repeat;
-  background-size: 200px 200px;
-}
-
-@keyframes fadein {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-</style>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="css/lost.css">
+    <script defer src="js/lost.js"></script>
+	<title>???</title>
 </head>
 
 <body>
+	<div class="center" id="content">
+  	  <p>You're not supposed to be here.</p>
+	</div>
 
-<div class="center" id="content">
-  <p>You're not supposed to be here.</p>
-</div>
-
-<audio id="audio" src="audio/lostbg.wav"></audio>
-
-<script>
-var started = false;
-
-function start() {
-  if (started) return;
-  started = true;
-
-  document.getElementById("content").style.display = "block";
-  document.body.className = "revealed";
-  document.getElementById("audio").play();
-}
-
-document.addEventListener("click", start);
-document.addEventListener("keydown", start);
-</script>
-
+	<audio id="audio" src="audio/lostbg.wav"></audio>
 </body>
-</html>
+</HTML>
