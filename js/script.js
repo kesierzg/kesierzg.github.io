@@ -56,7 +56,7 @@ function updateClock() {
   var m = now.getMinutes();
   if (h < 10) h = "0" + h;
   if (m < 10) m = "0" + m;
-  document.getElementById('clock').innerText = h + ":" + m;
+  document.getElementById('clock-text').innerText = h + ":" + m;
   updateBackground();
 }
 
