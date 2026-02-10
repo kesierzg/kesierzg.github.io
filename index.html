@@ -11,72 +11,94 @@
 	<link rel="stylesheet" href="css/index.css">
 	<link rel="stylesheet" type="text/css" href="css/clippy.css" media="all">
 	<title>⋆` 🍭 welcome 🍭 `⋆</title>
+    <script defer src="js/script.js"></script>
 	<script defer src="js/jquery.1.7.min.js"></script>
 	<script defer src="js/clippy.min.js"></script>
 	<script defer src="js/clippy-init.js"></script>
-    <script defer src="js/script.js"></script>
 </head>
 
 <body>
 	<div class="cone">
-	<img src="images/undercon.gif" alt="Under Construction">
+		<img src="images/undercon.gif" alt="Under Construction">
+	</div>
+	
+	<div class="icon" onclick="selectIcon(this); openWindow('window');">
+  		<div class="icon-inner">
+    		<img src="images/icons/explorer.png" alt="Mój komputer">
+    		<div class="icon-label">Mój komputer</div>
+  		</div>
+	</div>
+	
+	<div class="icon" onclick="selectIcon(this); openWindow('window-about');">
+  		<div class="icon-inner">
+    		<img src="images/icons/notepad.png" alt="O mnie">
+    		<div class="icon-label">O mnie</div>
+  		</div>
 	</div>
 
-	<div class="icon" onclick="selectIcon(this); openWindow();">
-  	<div class="icon-inner">
-    <img src="images/icons/explorer.png" alt="Mój komputer">
-    <div class="icon-label">Mój komputer</div>
-  </div>
+	<div class="icon recycle-bin" onclick="selectIcon(this); location.href='lost.html'">
+  	  <div class="icon-inner">
+    	  <img src="images/icons/bin.png" alt="Kosz">
+    	  <div class="icon-label">Kosz</div>
+  	  </div>
+	</div>
+
+	<div id="window" class="window" style="display:none;">
+  	  <img src="images/windows.png" width="760" ondragstart="return false;" alt="Okno">
+	  <div class="titlebar-drag" onmousedown="startDrag(this.closest('.window'), event)"></div>
+	  <div class="btn-close" onclick="closeWindow('window')"></div>
+
+  	<div class="content-inside">
+	    <p>
+		  Witaj na mojej stronie!<br><br>
+		  Ta strona została zaprojektowana w stylu Windows 98<br>
+		  Dlaczego??? Mam jakiś problem ze sobą i bardzo lubie ten intefejs, jak i inne retro GUI<br>
+		  Jako że to MOJA STRONA I MOGE W NIEJ PISAĆ CO CHCE TO TROCHE SIĘ WYŻYJE!!!
+		  Szczególnie denerwujące jest gdy nowoczesne strony internetowe używają menu rozwijanych,
+		  pierdyliarda animacji i wszelakiego szamba które niczemu nie służy. GRRRRRRRRR
+		  Ta mimo obecnego stanu ma o wiele więcej funkcji i hula. Szach mat komuniści. <br><br>
+	  
+		  Strona jest aktualizowana jak sobie o niej przypomne i mam wolny czas, pomiędzy 
+		  cosobotnim reinstallem Windowsa/Linuxa i naprawianiu elektrozłomu. No i oczywiście uczeniu się na 	  uczelnie
+		  tego typu jestem pilnym studentem.
+		</p>
+		<hr>
+		<div class="badges">
+		  <a href="https://www.firefox.com"><img src="images/firefoxgf1.gif" alt="Firefox"></a>
+		  <a href="https://infinitemac.org/"><img src="images/macos.gif" alt="Mac OS"></a>
+		  <a href="graphixs.html"><img src="images/93.png" alt="Graphic design is my passion"></a>
+		  <a href="https://www.newcp.net"><img src="images/e19.gif" alt="Club Penguin"></a>
+		</div>
+  	</div>
 </div>
 
-<div class="icon recycle-bin" onclick="selectIcon(this); location.href='lost.html'">
-  <div class="icon-inner">
-    <img src="images/icons/bin.png" alt="Kosz">
-    <div class="icon-label">Kosz</div>
-  </div>
-</div>
-
-<div id="window" class="window">
+<div id="window-about" class="window" style="display:none;">
   <img src="images/windows.png" width="760" ondragstart="return false;" alt="Okno">
-  <div class="titlebar-drag"></div>
-  <div class="btn-close" onclick="closeWindow()"></div>
+<div class="titlebar-drag" onmousedown="startDrag(this.closest('.window'), event)"></div>
+  <div class="btn-close" onclick="closeWindow('window-about')"></div>
 
   <div class="content-inside">
-    <p>
-	  Witaj na mojej stronie!<br><br>
-	  Ta strona została zaprojektowana w stylu Windows 98<br>
-	  Dlaczego??? Mam jakiś problem ze sobą i bardzo lubie ten intefejs, jak i inne retro GUI<br>
-	  Jako że to MOJA STRONA I MOGE W NIEJ PISAĆ CO CHCE TO TROCHE SIĘ WYŻYJE!!!
-	  Szczególnie denerwujące jest gdy nowoczesne strony internetowe używają menu rozwijanych,
-	  pierdyliarda animacji i wszelakiego szamba które niczemu nie służy. GRRRRRRRRR
-	  Ta mimo obecnego stanu ma o wiele więcej funkcji i hula. Szach mat komuniści. <br><br>
-	  
-	  Strona jest aktualizowana jak sobie o niej przypomne i mam wolny czas, pomiędzy 
-	  cosobotnim reinstallem Windowsa/Linuxa i naprawianiu elektrozłomu. No i oczywiście uczeniu się na 	  uczelnie
-	  tego typu jestem pilnym studentem.
+    <p class="center">
+		not today
 	</p>
-	<hr>
-	<div class="badges">
-	  <a href="https://www.firefox.com"><img src="images/firefoxgf1.gif" alt="Firefox"></a>
-	  <a href="https://infinitemac.org/"><img src="images/macos.gif" alt="Mac OS"></a>
-	  <a href="graphixs.html"><img src="images/93.png" alt="Graphic design is my passion"></a>
-	  <a href="https://www.newcp.net"><img src="images/e19.gif" alt="Club Penguin"></a>
 	  
 	</div>
   </div>
 </div>
 
-<div id="taskbar">
-  <img class="start" src="images/start@5x.png" alt="start">
-  <img class="taskbar-icon1" src="images/taskbar_spacer@5x.png" alt="taskbar spacer">
-  <img class="taskbar-icon2" src="images/taskbar_desktop@5x.png" alt="go to desktop">
-  <div style="flex-grow:1"></div>
-  <div id="clock">
-	<img class="clock-icon" src="images/taskbar_sound@5x.png" alt="sound">
-	<span id="clock-text"></span>
-  </div>
-</div>
+	<div id="taskbar">
+	  <img class="start" src="images/start@5x.png" alt="start">
+	  <img class="taskbar-icon1" src="images/taskbar_spacer@5x.png" alt="taskbar spacer">
+	  <img class="taskbar-icon2" src="images/taskbar_desktop@5x.png" alt="go to desktop">
+	  <div style="flex-grow:1"></div>
+	  <div id="clock">
+		<img class="clock-icon" src="images/taskbar_heart@5x.png" alt="sound">
+		<img class="clock-icon" src="images/taskbar_net@5x.png" alt="sound">
+		<img class="clock-icon" src="images/taskbar_sound@5x.png" alt="sound">
+		<span id="clock-text"></span>
+	  </div>
+	</div>
 
-<div class="footer">© 2026 kesierzg</div>
+	<div class="footer">© 2026 kesierzg</div>
 </body>
 </HTML>

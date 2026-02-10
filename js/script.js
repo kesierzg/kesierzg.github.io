@@ -1,35 +1,66 @@
-var isDragging = false;
-var offsetX = 0;
-var offsetY = 0;
+var dragWin = null;
+var dragOffsetX = 0;
+var dragOffsetY = 0;
 
-function startDrag(e) {
-  var box = document.getElementById('window');
-  isDragging = true;
-  offsetX = e.clientX - box.offsetLeft;
-  offsetY = e.clientY - box.offsetTop;
-  document.onmousemove = drag;
-  document.onmouseup = stopDrag;
+function startDrag(win, e) {
+  dragWin = win;
+
+  var rect = win.getBoundingClientRect();
+  dragOffsetX = e.clientX - rect.left;
+  dragOffsetY = e.clientY - rect.top;
+
+  bringToFront(win);
+
+  document.addEventListener("mousemove", dragMove);
+  document.addEventListener("mouseup", stopDrag);
 }
 
-function drag(e) {
-  if (!isDragging) return;
-  var box = document.getElementById('window');
-  box.style.left = (e.clientX - offsetX) + 'px';
-  box.style.top = (e.clientY - offsetY) + 'px';
+function dragMove(e) {
+  if (!dragWin) return;
+
+  dragWin.style.left = (e.clientX - dragOffsetX) + "px";
+  dragWin.style.top  = (e.clientY - dragOffsetY) + "px";
 }
 
 function stopDrag() {
-  isDragging = false;
-  document.onmousemove = null;
-  document.onmouseup = null;
+  dragWin = null;
+  document.removeEventListener("mousemove", dragMove);
+  document.removeEventListener("mouseup", stopDrag);
 }
 
-function openWindow() {
-  document.getElementById('window').style.display = 'block';
+function openWindow(id) {
+  var win = document.getElementById(id);
+  if (!win) return;
+
+  win.style.display = "block";
+  bringToFront(win);
 }
 
-function closeWindow() {
-  document.getElementById('window').style.display = 'none';
+function closeWindow(id) {
+  var win = document.getElementById(id);
+  if (!win) return;
+
+  win.style.display = "none";
+}
+
+function initPage() {
+  updateClock();
+  setInterval(updateClock, 60000);
+
+  openWindow("window");
+}
+
+if (window.addEventListener) {
+  window.addEventListener("load", initPage, false);
+} else {
+  window.onload = initPage;
+}
+
+var topZ = 100;
+
+function bringToFront(win) {
+  topZ++;
+  win.style.zIndex = topZ;
 }
 
 function selectIcon(el) {
@@ -59,10 +90,3 @@ function updateClock() {
   document.getElementById('clock-text').innerText = h + ":" + m;
   updateBackground();
 }
-
-window.onload = function () {
-  document.querySelector('.titlebar-drag').onmousedown = startDrag;
-  document.onmouseleave = stopDrag;
-  updateClock();
-  setInterval(updateClock, 60000);
-};

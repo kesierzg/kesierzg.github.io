@@ -29,6 +29,7 @@ body {
 
 .icon {
   width: 72px;
+  margin-bottom: 16px;
   text-align: center;
   font-size: 11px;
   color: white;
@@ -72,6 +73,20 @@ body {
 .window img {
   -webkit-user-drag: none;
   user-select: none;
+}
+
+#window {
+  top: 80px;
+  left: 400px;
+}
+
+#window-about {
+  top: 120px;
+  left: 180px;
+}
+
+.center {
+  text-align: center;
 }
 
 .titlebar-drag {
@@ -182,8 +197,11 @@ body {
 .footer {
   position: fixed;
   bottom: 0;
+  left: 0;
+  right: 0;
   width: 100%;
   height: 20px;
+  z-index: 999;
   background: #E0E0E0;
   border-top: 1px solid #808080;
   text-align: center;
